@@ -29,6 +29,11 @@ class PortfolioController extends Controller
         ]);
     }
 
+    public function contact()
+    {
+        return Inertia::render('Portfolio/Contact');
+    }
+
     public function showProject(Project $project)
     {
         return Inertia::render('Portfolio/ProjectDetail', [

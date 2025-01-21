@@ -9,6 +9,7 @@ use App\Http\Controllers\ProjectController;
 
 Route::get('/', [PortfolioController::class, 'index'])->name('home');
 Route::get('/projects', [ProjectController::class, 'index'])->name('projects');
+Route::get('/contact', [PortfolioController::class, 'contact'])->name('contact');
 
 Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/about', [AboutController::class, 'first'])->name('about.first');
