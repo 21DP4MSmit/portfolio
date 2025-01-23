@@ -36,8 +36,8 @@ class EducationController extends Controller
             'institution' => 'required|string|max:255',
             'degree' => 'required|string|max:255',
             'field_of_study' => 'required|string|max:255',
-            'start_date' => 'required|date',
-            'end_date' => 'nullable|date|after:start_date',
+            'start_date' => 'required|date_format:Y-m-d',
+            'end_date' => 'nullable|date_format:Y-m-d|after:start_date',
             'description' => 'nullable|string',
             'location' => 'required|string|max:255',
         ]);
@@ -68,8 +68,8 @@ class EducationController extends Controller
             'institution' => 'required|string|max:255',
             'degree' => 'required|string|max:255',
             'field_of_study' => 'required|string|max:255',
-            'start_date' => 'required|date',
-            'end_date' => 'nullable|date|after:start_date',
+            'start_date' => 'required|date_format:Y-m-d',
+            'end_date' => 'nullable|date_format:Y-m-d|after:start_date',
             'description' => 'nullable|string',
             'location' => 'required|string|max:255',
         ]);

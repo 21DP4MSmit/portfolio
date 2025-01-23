@@ -1,28 +1,28 @@
 <template>
     <Layout>
-      <div class="max-w-2xl mx-auto p-8 bg-white rounded-2xl shadow-lg border border-gray-100">
-        <h1 class="text-3xl font-extrabold mb-8 text-gray-800 border-b pb-4">Edit Tech Stack</h1>
+      <div class="max-w-2xl mx-auto p-8 bg-[#121212] rounded-2xl shadow-lg border border-gray-100">
+        <h1 class="text-3xl font-extrabold mb-8 text-gray-400 border-b pb-4">Edit Tech Stack</h1>
         
         <form @submit.prevent="submit" class="space-y-8">
           <div>
-            <label class="block text-md font-semibold text-gray-700 mb-2">Name</label>
+            <label class="block text-md font-semibold  text-gray-400 mb-2">Name</label>
             <input 
               v-model="form.name" 
               type="text" 
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"
+              class="w-full px-4 py-3 border border-gray-300 text-gray-200 bg-zinc-900  rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"
             >
             <p v-if="form.errors.name" class="text-red-500 text-sm mt-2 pl-1">{{ form.errors.name }}</p>
           </div>
   
           <div>
-            <label class="block text-md font-semibold text-gray-700 mb-2">Icon</label>
+            <label class="block text-md font-semibold text-gray-400 mb-2">Icon</label>
             <div class="flex items-center space-x-4">
               <img v-if="form.icon" :src="form.icon" 
                    class="h-12 w-12 object-contain border rounded p-1">
               <input 
                 type="file" 
                 @input="form.icon = $event.target.files[0]"
-                class="border p-2 rounded-md file:mr-4 file:rounded-md file:border-0 file:bg-blue-50 file:px-4 file:py-2 file:text-blue-700 hover:file:bg-blue-100"
+                class="border p-2 rounded-md text-gray-200 file:mr-4  file:rounded-md file:border-0 file:bg-zinc-900 file:px-4 file:py-2 file:text-blue-700 hover:file:bg-blue-100"
                 accept="image/png, image/jpeg, image/svg+xml"
               >
             </div>
@@ -30,10 +30,10 @@
           </div>
   
           <div>
-            <label class="block text-md font-semibold text-gray-700 mb-2">Category</label>
+            <label class="block text-md font-semibold text-gray-400 mb-2">Category</label>
             <select 
               v-model="form.category" 
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"
+              class="w-full px-4 py-3 border border-gray-300 text-gray-200 bg-zinc-900 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"
             >
               <option value="">Select Category</option>
               <option value="frontend">Frontend</option>
@@ -47,7 +47,7 @@
           </div>
   
           <div>
-            <label class="block text-md font-semibold text-gray-700 mb-2">Proficiency</label>
+            <label class="block text-md font-semibold text-gray-400 mb-2">Proficiency</label>
             <div class="flex items-center space-x-4">
               <div class="flex-grow relative">
                 <input 
@@ -75,7 +75,7 @@
                 type="number"
                 min="1"
                 max="100"
-                class="w-20 px-3 py-2 border border-gray-300 rounded-lg text-center focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"
+                class="w-20 px-3 py-2 border border-gray-300 rounded-lg bg-zinc-900 text-center focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"
               />
             </div>
             <p v-if="form.errors.proficiency" class="text-red-500 text-sm mt-2 pl-1">{{ form.errors.proficiency }}</p>
@@ -84,13 +84,13 @@
           <div class="flex justify-end space-x-4">
             <Link 
               :href="route('admin.tech-stacks.index')" 
-              class="px-6 py-3 text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition duration-300"
+              class="btn-secondary"
             >
               Cancel
             </Link>
             <button 
               type="submit" 
-              class="px-6 py-3 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300"
+              class="btn-primary"
               :disabled="form.processing"
             >
               Update

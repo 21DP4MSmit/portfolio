@@ -1,17 +1,17 @@
 <template>
-  <div class="min-h-screen bg-gray-100">
+  <div class="min-h-screen bg-zinc-900">
     <!-- Side Navigation -->
-    <div class="fixed w-64 h-full bg-white shadow-lg">
+    <div class="fixed w-64 h-full bg-zinc-800 shadow-lg">
       <div class="p-4">
-        <h1 class="text-xl font-bold text-gray-800">Admin Panel</h1>
+        <h1 class="text-2xl font-bold text-white">Admin Panel</h1>
       </div>
       <nav class="mt-4">
         <Link 
           v-for="link in navLinks" 
           :key="link.path"
           :href="link.path"
-          class="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-          :class="{ 'bg-gray-100': route().current(link.name) }"
+          class="block px-6 py-2 font-bold text-gray-400 hover:bg-zinc-700"
+          :class="{ 'bg-zinc-700': route().current(link.name) }"
         >
           {{ link.label }}
         </Link>
@@ -19,7 +19,7 @@
     </div>
 
     <!-- Main Content -->
-    <div class="ml-64 p-8">
+    <div class="ml-64 p-8 text-gray-400">
       <slot /> <!-- This renders the child component (e.g., Education/Index.vue) -->
     </div>
   </div>

@@ -14,6 +14,7 @@ class Project extends Model
         'live_link',
     ];
 
+    
     public function techStacks()
     {
         return $this->belongsToMany(TechStack::class, 'project_tech_stacks');

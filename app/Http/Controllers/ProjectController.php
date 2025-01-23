@@ -42,7 +42,11 @@ class ProjectController extends Controller
     public function create()
     {
         return Inertia::render('Admin/Projects/Create', [
-            'techStacks' => TechStack::all()->map(fn($stack) => ['id' => $stack->id, 'name' => $stack->name])
+            'techStacks' => TechStack::all()->map(fn($stack) => [
+                'id' => $stack->id,
+                'name' => $stack->name,
+                'icon_url' => $stack->icon ? Storage::url('tech-stacks/' . $stack->icon) : null,
+            ])
         ]);
     }
 
@@ -84,7 +88,8 @@ class ProjectController extends Controller
             ],
             'techStacks' => TechStack::all()->map(fn($stack) => [
                 'id' => $stack->id,
-                'name' => $stack->name
+                'name' => $stack->name,
+                'icon_url' => $stack->icon ? asset("storage/tech-stacks/{$stack->icon}") : null,
             ])
         ]);
     }

@@ -1,18 +1,18 @@
 <template>
-  <div class="max-w-2xl mx-auto space-y-6">
-    <div class="flex justify-between items-center border-b pb-4">
-      <h1 class="text-3xl font-bold text-gray-800">Profile Settings</h1>
+  <div class="max-w-2xl mx-auto space-y-6 ">
+    <div class="flex justify-between items-center border-b pb-4 ">
+      <h1 class="text-3xl font-bold text-gray-400">Profile Settings</h1>
     </div>
 
-    <div class="bg-white rounded-lg shadow-md p-8">
+    <div class="bg-[#121212] rounded-lg shadow-md p-8">
       <form @submit.prevent="submitForm" class="space-y-6">
         <div class="grid grid-cols-1 gap-6">
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Name</label>
+            <label class="block text-sm font-medium text-gray-400 mb-2">Name</label>
             <input
               v-model="form.name"
               type="text"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm 
+              class="w-full px-3 py-2 bg-zinc-900 text-gray-200 border border-gray-300 rounded-md shadow-sm 
                      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 
                      transition duration-300"
             />
@@ -22,11 +22,11 @@
           </div>
 
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Bio</label>
+            <label class="block text-sm font-medium text-gray-400 mb-2">Bio</label>
             <textarea
               v-model="form.bio"
               rows="4"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm 
+              class="w-full px-3 py-2 bg-zinc-900 text-gray-200 border border-gray-300 rounded-md shadow-sm 
                      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 
                      transition duration-300"
             ></textarea>
@@ -36,11 +36,11 @@
           </div>
 
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Position</label>
+            <label class="block text-sm font-medium text-gray-400 mb-2">Position</label>
             <input
               v-model="form.position"
               type="text"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm 
+              class="w-full px-3 py-2 bg-zinc-900 text-gray-200 border border-gray-300 rounded-md shadow-sm 
                      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 
                      transition duration-300"
             />
@@ -50,7 +50,7 @@
           </div>
 
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Photo</label>
+            <label class="block text-sm font-medium text-gray-400 mb-2">Photo</label>
             <div class="flex items-center space-x-4">
               <input
                 type="file"
@@ -59,7 +59,7 @@
                        file:mr-4 file:py-2 file:px-4 
                        file:rounded-full file:border-0 
                        file:text-sm file:font-semibold 
-                       file:bg-blue-50 file:text-blue-700 
+                       file:bg-zinc-900 file:text-blue-700 
                        hover:file:bg-blue-100"
                 accept="image/*"
               />
@@ -73,7 +73,7 @@
         <div class="flex justify-end mt-6">
           <button
             type="submit"
-            class="px-6 py-2 bg-blue-600 text-white rounded-md 
+            class="px-6 py-2 bg-blue-900 text-white rounded-md 
                    hover:bg-blue-700 focus:outline-none focus:ring-2 
                    focus:ring-blue-500 focus:ring-offset-2 
                    transition duration-300 

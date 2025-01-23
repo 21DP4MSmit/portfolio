@@ -1,36 +1,36 @@
 <template>
     <Layout>
-        <div class="max-w-4xl mx-auto p-8 bg-white rounded-2xl shadow-lg border border-gray-100">
-        <h1 class="text-3xl font-extrabold mb-8 text-gray-800 border-b pb-4">Edit Education</h1>
+        <div class="max-w-4xl mx-auto p-8 bg-[#121212] rounded-2xl shadow-lg border border-gray-100">
+        <h1 class="text-3xl font-extrabold mb-8 text-gray-400 border-b pb-4">Edit Education</h1>
         
         <form @submit.prevent="submit" class="space-y-8">
           <div>
-            <label class="block text-md font-semibold text-gray-700 mb-2">Institution</label>
+            <label class="block text-md font-semibold text-gray-400 mb-2">Institution</label>
             <input 
               v-model="form.institution" 
               type="text" 
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"
+              class="w-full px-4 py-3 border border-gray-300 text-gray-200 bg-zinc-900 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"
             >
             <p v-if="form.errors.institution" class="text-red-500 text-sm mt-2 pl-1">{{ form.errors.institution }}</p>
           </div>
   
           <div class="grid md:grid-cols-2 gap-6">
             <div>
-              <label class="block text-md font-semibold text-gray-700 mb-2">Degree</label>
+              <label class="block text-md font-semibold text-gray-400 mb-2">Degree</label>
               <input 
                 v-model="form.degree" 
                 type="text" 
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"
+                class="w-full px-4 py-3 border border-gray-300 bg-zinc-900 text-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"
               >
               <p v-if="form.errors.degree" class="text-red-500 text-sm mt-2 pl-1">{{ form.errors.degree }}</p>
             </div>
   
             <div>
-              <label class="block text-md font-semibold text-gray-700 mb-2">Field of Study</label>
+              <label class="block text-md font-semibold text-gray-400 mb-2">Field of Study</label>
               <input 
                 v-model="form.field_of_study" 
                 type="text" 
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"
+                class="w-full px-4 py-3 border border-gray-300 text-gray-200 bg-zinc-900 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"
               >
               <p v-if="form.errors.field_of_study" class="text-red-500 text-sm mt-2 pl-1">{{ form.errors.field_of_study }}</p>
             </div>
@@ -38,27 +38,37 @@
   
           <div class="grid grid-cols-2 gap-6">
             <div>
-              <label class="block text-sm font-medium text-gray-700">Start Date</label>
-              <VueDatePicker v-model="form.start_date" :enable-time-picker="false" auto-apply />
+              <label class="block text-sm font-medium text-gray-400">Start Date</label>
+              <VueDatePicker 
+                v-model="form.start_date" 
+                :enable-time-picker="false" 
+                auto-apply
+                format="yyyy-MM-dd"
+              />
               <p v-if="form.errors.start_date" class="text-red-500 text-sm mt-1">{{ form.errors.start_date }}</p>
             </div>
   
             <div>
-              <label class="block text-sm font-medium text-gray-700">End Date</label>
-              <VueDatePicker v-model="form.end_date" :enable-time-picker="false" auto-apply />
+              <label class="block text-sm font-medium text-gray-400">End Date</label>
+              <VueDatePicker 
+                v-model="form.end_date" 
+                :enable-time-picker="false" 
+                auto-apply
+                format="yyyy-MM-dd"
+              />
               <p v-if="form.errors.end_date" class="text-red-500 text-sm mt-1">{{ form.errors.end_date }}</p>
             </div>
           </div>
   
           <div>
-            <label class="block text-sm font-medium text-gray-700">Location</label>
-            <input v-model="form.location" type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+            <label class="block text-sm font-medium text-gray-400">Location</label>
+            <input v-model="form.location" type="text" class="mt-1 block w-full rounded-md border-gray-300 text-gray-200 bg-zinc-900 shadow-sm">
             <p v-if="form.errors.location" class="text-red-500 text-sm mt-1">{{ form.errors.location }}</p>
           </div>
   
           <div>
-            <label class="block text-sm font-medium text-gray-700">Description</label>
-            <textarea v-model="form.description" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"></textarea>
+            <label class="block text-sm font-medium text-gray-400">Description</label>
+            <textarea v-model="form.description" rows="3" class="mt-1 block w-full rounded-md border-gray-300 text-gray-200 bg-zinc-900 shadow-sm"></textarea>
             <p v-if="form.errors.description" class="text-red-500 text-sm mt-1">{{ form.errors.description }}</p>
           </div>
   
@@ -95,8 +105,20 @@ const form = useForm({
 })
   
 const submit = () => {
-    form.put(route('admin.education.update', props.education.id), {
-        preserveScroll: true,
+  const formattedData = {
+    ...form.data(),
+    start_date: formatDate(form.start_date),
+    end_date: form.end_date ? formatDate(form.end_date) : null
+  }
+
+  form.transform(() => formattedData).put(route('admin.education.update', props.education.id), {
+    preserveScroll: true,
   })
+}
+
+const formatDate = (date) => {
+  if (!date) return null;
+  if (typeof date === 'string') return date.split('T')[0];
+  return date.toISOString().split('T')[0];
 }
 </script>
