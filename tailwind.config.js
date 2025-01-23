@@ -45,12 +45,25 @@ export default {
                     '0%': { transform: 'translateY(100%)', opacity: '0' },
                     '100%': { transform: 'translateY(0)', opacity: '1' },
                 },
+                slideDownFromSelf: {
+                    '0%': {
+                      transform: 'scaleY(0)',
+                      transformOrigin: 'top',
+                      opacity: '0'
+                    },
+                    '100%': {
+                      transform: 'scaleY(1)',
+                      transformOrigin: 'top',
+                      opacity: '1'
+                    }
+                  }
             },
             animation: {
                 slideInLeft: 'slideInLeft 0.6s ease-out forwards',
                 slideInRight: 'slideInRight 0.6s ease-out forwards',
                 slideInDown: 'slideInDown 0.6s ease-out forwards',
                 slideInUp: 'slideInUp 0.6s ease-out forwards',
+                slideDownFromSelf: 'slideDownFromSelf 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
             },
         },
     },

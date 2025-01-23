@@ -11,7 +11,7 @@
     </div>
 
     <!-- Project Info -->
-    <div class="bg-[#1a1a1a] rounded-lg p-6">
+    <div class="bg-[#1a1a1a] rounded-lg p-6 animate-slideDownFromSelf">
       <h2 class="text-2xl font-bold text-white mb-4">{{ project.title }}</h2>
       <p class="text-gray-400 mb-6">{{ project.description }}</p>
 

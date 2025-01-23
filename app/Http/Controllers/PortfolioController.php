@@ -9,15 +9,30 @@ use App\Models\WorkExperience;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Storage;
+
 
 class PortfolioController extends Controller
 {
     public function index()
     {
+        $about = About::first();
+
         return Inertia::render('Portfolio/Home', [
-            'about' => About::first(),
-            'techStacks' => TechStack::all(),
-            'education' => Education::orderBy('end_date', 'desc')->get(),
+            'about' => $about ? $about->only('bio', 'name', 'photo') : null,
+            'techStacks' => TechStack::all()->map(fn($tech) => [
+                'id' => $tech->id,
+                'name' => $tech->name,
+                'icon_url' => Storage::url('tech-stacks/' . $tech->icon)
+            ]),
+            'education' => Education::all()->map(fn($edu) => [
+                'id' => $edu->id,
+                'institution' => $edu->institution,
+                'degree' => $edu->degree,
+                'field_of_study' => $edu->field_of_study,
+                'start_date' => $edu->start_date,
+                'end_date' => $edu->end_date
+            ]),
             'experience' => WorkExperience::orderBy('start_date', 'desc')->get(),
         ]);
     }

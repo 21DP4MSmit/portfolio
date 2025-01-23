@@ -13,9 +13,11 @@
           <div v-for="entry in education" :key="entry.id" class="text-white">
             <h3 class="font-semibold">{{ entry.institution }}</h3>
             <p class="text-sm text-gray-300">
-              ({{ formatDate(entry.start_date) }} - {{ entry.end_date ? formatDate(entry.end_date) : 'Today' }})
+              {{ entry.degree }} <br> {{ entry.field_of_study }}
             </p>
-            <p class="text-sm text-gray-300">{{ entry.degree }}</p>
+            <p class="text-sm text-gray-300">
+              ({{ formatDate(entry.start_date) }} - {{ entry.end_date ? formatDate(entry.end_date) : 'Present' }})
+            </p>
           </div>
         </div>
       </div>
@@ -24,8 +26,20 @@
       <div class="col-start-1 row-start-2 row-span-2 bg-[#1a1a1a] rounded-lg p-4 animate-slideInUp">
         <h2 class="text-2xl font-bold text-white mb-2">Technologies I have worked with</h2>
         <div class="grid grid-cols-4 gap-2">
-          <div v-for="tech in techStacks" :key="tech.id" class="flex items-center justify-center">
-            <img :src="tech.icon" :alt="tech.name" class="h-8 w-8 object-contain" />
+          <div 
+            v-for="tech in techStacks" 
+            :key="tech.id" 
+            class="group relative flex items-center justify-center"
+          >
+            <img 
+              :src="tech.icon_url" 
+              :alt="tech.name" 
+              class="h-12 w-12 object-contain p-1 hover:scale-110 transition-transform"
+            />
+            <span class="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-sm px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
+              {{ tech.name }}
+              <div class="absolute top-full left-1/2 -translate-x-1/2 w-2 h-2 bg-gray-800 rotate-45"></div>
+            </span>
           </div>
         </div>
       </div>

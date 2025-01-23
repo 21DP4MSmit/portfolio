@@ -10,6 +10,15 @@ use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {  
+    public function index0()
+    {
+        $projects = Project::with('techStacks')->get();
+        
+        return Inertia::render('Portfolio/Projects', [
+            'projects' => $projects
+        ]);
+    }
+
     public function index()
     {
         $projects = Project::with('techStacks')->get()->map(function ($project) {

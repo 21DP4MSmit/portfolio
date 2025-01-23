@@ -6,6 +6,7 @@
 
     <div class="bg-[#121212] rounded-lg shadow-md p-8">
       <form @submit.prevent="submitForm" class="space-y-6">
+        <input type="hidden" name="_method" value="PUT">
         <div class="grid grid-cols-1 gap-6">
           <div>
             <label class="block text-sm font-medium text-gray-400 mb-2">Name</label>
@@ -49,24 +50,20 @@
             </p>
           </div>
 
-          <div>
-            <label class="block text-sm font-medium text-gray-400 mb-2">Photo</label>
-            <div class="flex items-center space-x-4">
-              <input
-                type="file"
-                @change="handlePhotoUpload"
-                class="block w-full text-sm text-gray-500 
-                       file:mr-4 file:py-2 file:px-4 
-                       file:rounded-full file:border-0 
-                       file:text-sm file:font-semibold 
-                       file:bg-zinc-900 file:text-blue-700 
-                       hover:file:bg-blue-100"
-                accept="image/*"
-              />
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-300">GitHub URL</label>
+              <input v-model="form.social_links.github" type="url" 
+                    class="mt-1 block w-full rounded-md bg-zinc-800 text-gray-100 border-gray-700"
+                    placeholder="https://github.com/yourusername">
             </div>
-            <p v-if="form.errors.photo" class="text-red-500 text-xs mt-1">
-              {{ form.errors.photo }}
-            </p>
+            
+            <div>
+              <label class="block text-sm font-medium text-gray-300">LinkedIn URL</label>
+              <input v-model="form.social_links.linkedin" type="url" 
+                    class="mt-1 block w-full rounded-md bg-zinc-800 text-gray-100 border-gray-700"
+                    placeholder="https://linkedin.com/in/yourprofile">
+            </div>
           </div>
         </div>
 
@@ -90,8 +87,9 @@
 
 <script setup>
 import { useForm } from '@inertiajs/vue3'
+import { router } from '@inertiajs/vue3'
 import Layout from '@/Layouts/Dashboard.vue';
-  
+
 defineOptions({ layout: Layout });
 
 const props = defineProps({
@@ -102,18 +100,21 @@ const props = defineProps({
 })
 
 const form = useForm({
-  name: props.about.name,
-  bio: props.about.bio,
-  position: props.about.position,
-  photo: null
+  name: props.about.name || '',
+  bio: props.about.bio || '',
+  position: props.about.position || '',
+  photo: null,
+  social_links: {
+    github: props.about.social_links?.github || '',
+    linkedin: props.about.social_links?.linkedin || ''
+  }
 })
 
-const handlePhotoUpload = (e) => {
-  form.photo = e.target.files[0]
-}
-
 const submitForm = () => {
-  form.put(route('admin.about.update', props.about.id), {
+  form.transform((data) => ({
+    ...data,
+    social_links: JSON.stringify(data.social_links)
+  })).put(route('admin.about.update', props.about.id), {
     preserveScroll: true,
     onSuccess: () => {
       form.reset('photo')

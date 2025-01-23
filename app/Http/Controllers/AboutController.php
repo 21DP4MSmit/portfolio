@@ -10,9 +10,9 @@ class AboutController extends Controller
 {
     public function edit()
     {
-        $about = About::first();
+        $about = About::firstOrNew();
         return Inertia::render('Admin/Forms/AboutForm', [
-            'about' => $about,
+            'about' => $about->toArray()
         ]);
     }
 
@@ -22,17 +22,18 @@ class AboutController extends Controller
             'name' => 'required|string|max:255',
             'bio' => 'required|string',
             'position' => 'required|string|max:255',
-            'photo' => 'nullable|image|max:2048',
-            'social_links' => 'nullable|array'
+            'social_links' => 'array',
+            'social_links.github' => 'nullable|url',
+            'social_links.linkedin' => 'nullable|url'
         ]);
 
-        if ($request->hasFile('photo')) {
-            $path = $request->file('photo')->store('about', 'public');
-            $validated['photo'] = $path;
-        }
+        $about->update([
+            'name' => $validated['name'],
+            'bio' => $validated['bio'],
+            'position' => $validated['position'],
+            'social_links' => $validated['social_links']
+        ]);
 
-        $about->update($validated);
-
-        return redirect()->back()->with('success', 'About updated');
+        return back();
     }
 }

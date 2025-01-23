@@ -22,4 +22,9 @@ class About extends Model
     protected $casts = [
         'social_links' => 'array'
     ];
+
+    public function getSocialLinksAttribute($value)
+    {
+        return is_array($value) ? $value : json_decode($value, true);
+    }
 }
