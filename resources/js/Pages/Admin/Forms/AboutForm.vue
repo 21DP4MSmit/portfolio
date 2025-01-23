@@ -104,21 +104,17 @@ const form = useForm({
   bio: props.about.bio || '',
   position: props.about.position || '',
   photo: null,
-  social_links: {
-    github: props.about.social_links?.github || '',
-    linkedin: props.about.social_links?.linkedin || ''
-  }
-})
+  social_links: props.about.social_links || { github: '', linkedin: '' }
+});
+
 
 const submitForm = () => {
-  form.transform((data) => ({
-    ...data,
-    social_links: JSON.stringify(data.social_links)
-  })).put(route('admin.about.update', props.about.id), {
+  form.put(route('admin.about.update', props.about.id), {
     preserveScroll: true,
     onSuccess: () => {
-      form.reset('photo')
-    }
-  })
-}
+      form.reset('photo');
+    },
+  });
+};
+
 </script>

@@ -25,6 +25,9 @@ class About extends Model
 
     public function getSocialLinksAttribute($value)
     {
-        return is_array($value) ? $value : json_decode($value, true);
+        if (is_array($value)) {
+            return $value;
+        }
+        return $value ? json_decode($value, true) : [];
     }
 }

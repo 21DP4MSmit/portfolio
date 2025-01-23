@@ -19,7 +19,9 @@ class PortfolioController extends Controller
         $about = About::first();
 
         return Inertia::render('Portfolio/Home', [
-            'about' => $about ? $about->only('bio', 'name', 'photo') : null,
+            'about' => $about ? $about->only('bio', 'name', 'position', 'photo') + [
+                'social_links' => json_decode($about->social_links, true)
+            ] : null,
             'techStacks' => TechStack::all()->map(fn($tech) => [
                 'id' => $tech->id,
                 'name' => $tech->name,
@@ -37,6 +39,7 @@ class PortfolioController extends Controller
         ]);
     }
 
+
     public function projects()
     {
         return Inertia::render('Portfolio/Projects', [
@@ -46,7 +49,13 @@ class PortfolioController extends Controller
 
     public function contact()
     {
-        return Inertia::render('Portfolio/Contact');
+        $about = About::first();
+
+        return Inertia::render('Portfolio/Contact', [
+            'about' => $about ? $about->only('email') + [
+                'social_links' => json_decode($about->social_links, true)
+            ] : null
+        ]);
     }
 
     public function showProject(Project $project)

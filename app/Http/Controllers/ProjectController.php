@@ -12,8 +12,20 @@ class ProjectController extends Controller
 {  
     public function index0()
     {
-        $projects = Project::with('techStacks')->get();
-        
+        $projects = Project::with('techStacks')->get()->map(function ($project) {
+            return [
+                'id' => $project->id,
+                'title' => $project->title,
+                'description' => $project->description,
+                'thumbnail' => $project->thumbnail 
+                    ? Storage::url('projects/' . $project->thumbnail)
+                    : null,
+                'github_link' => $project->github_link,
+                'live_link' => $project->live_link,
+                'tech_stacks' => $project->techStacks
+            ];
+        });
+
         return Inertia::render('Portfolio/Projects', [
             'projects' => $projects
         ]);

@@ -56,14 +56,40 @@ export default {
                       transformOrigin: 'top',
                       opacity: '1'
                     }
-                  }
+                  },
+                slideRightFromSelf: {
+                    '0%': {
+                      transform: 'scaleX(0) translateX(100%)',
+                      transformOrigin: 'right',
+                      opacity: '0'
+                    },
+                    '100%': {
+                      transform: 'scaleX(1) translateX(0)',
+                      transformOrigin: 'right',
+                      opacity: '1'
+                    }
+                },
+                slideLeftFromSelf: {
+                    '0%': {
+                      transform: 'scaleX(0) translateX(-100%)',
+                      transformOrigin: 'left',
+                      opacity: '0'
+                    },
+                    '100%': {
+                      transform: 'scaleX(1) translateX(0)',
+                      transformOrigin: 'left',
+                      opacity: '1'
+                    }
+                }
             },
             animation: {
                 slideInLeft: 'slideInLeft 0.6s ease-out forwards',
                 slideInRight: 'slideInRight 0.6s ease-out forwards',
                 slideInDown: 'slideInDown 0.6s ease-out forwards',
                 slideInUp: 'slideInUp 0.6s ease-out forwards',
-                slideDownFromSelf: 'slideDownFromSelf 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
+                slideDownFromSelf: 'slideDownFromSelf 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+                slideRightFromSelf: 'slideRightFromSelf 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards',
+                slideLeftFromSelf: 'slideLeftFromSelf 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards'
             },
         },
     },

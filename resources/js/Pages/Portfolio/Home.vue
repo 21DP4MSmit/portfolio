@@ -46,12 +46,26 @@
 
       <!-- Profile -->
       <div class="col-start-2 row-start-2 bg-[#1a1a1a] rounded-lg p-4 flex flex-col items-center justify-center">
+        <!-- GitHub Profile Picture -->
         <img
-          :src="about.photo"
+          :src="about.photo || `https://github.com/${about.social_links.github.split('/').pop()}.png`"
           :alt="about.name"
           class="h-16 w-16 rounded-full mb-2"
         />
-        <h2 class="text-2xl font-bold text-blue-400">{{ about.name }}</h2>
+        
+        <a
+          v-if="about.social_links?.github"
+          :href="about.social_links.github"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-2xl font-bold text-blue-400 hover:underline"
+        >
+          {{ about.name }}
+        </a>
+        
+        <p class="text-gray-300 mt-2" v-if="about.position">
+          {{ about.position }}
+        </p>
       </div>
 
       <!-- Work Experience -->
