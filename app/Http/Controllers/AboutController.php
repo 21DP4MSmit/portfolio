@@ -8,9 +8,12 @@ use Inertia\Inertia;
 
 class AboutController extends Controller
 {
-    public function first()
+    public function edit()
     {
-        return About::first();
+        $about = About::first();
+        return Inertia::render('Admin/Forms/AboutForm', [
+            'about' => $about,
+        ]);
     }
 
     public function update(Request $request, About $about)
@@ -30,6 +33,6 @@ class AboutController extends Controller
 
         $about->update($validated);
 
-        return redirect()->back()->with('success', 'About information updated successfully');
+        return redirect()->back()->with('success', 'About updated');
     }
 }

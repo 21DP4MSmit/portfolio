@@ -1,0 +1,123 @@
+<template>
+  <div class="max-w-2xl mx-auto space-y-6">
+    <div class="flex justify-between items-center border-b pb-4">
+      <h1 class="text-3xl font-bold text-gray-800">Profile Settings</h1>
+    </div>
+
+    <div class="bg-white rounded-lg shadow-md p-8">
+      <form @submit.prevent="submitForm" class="space-y-6">
+        <div class="grid grid-cols-1 gap-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Name</label>
+            <input
+              v-model="form.name"
+              type="text"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm 
+                     focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 
+                     transition duration-300"
+            />
+            <p v-if="form.errors.name" class="text-red-500 text-xs mt-1">
+              {{ form.errors.name }}
+            </p>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Bio</label>
+            <textarea
+              v-model="form.bio"
+              rows="4"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm 
+                     focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 
+                     transition duration-300"
+            ></textarea>
+            <p v-if="form.errors.bio" class="text-red-500 text-xs mt-1">
+              {{ form.errors.bio }}
+            </p>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Position</label>
+            <input
+              v-model="form.position"
+              type="text"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm 
+                     focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 
+                     transition duration-300"
+            />
+            <p v-if="form.errors.position" class="text-red-500 text-xs mt-1">
+              {{ form.errors.position }}
+            </p>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Photo</label>
+            <div class="flex items-center space-x-4">
+              <input
+                type="file"
+                @change="handlePhotoUpload"
+                class="block w-full text-sm text-gray-500 
+                       file:mr-4 file:py-2 file:px-4 
+                       file:rounded-full file:border-0 
+                       file:text-sm file:font-semibold 
+                       file:bg-blue-50 file:text-blue-700 
+                       hover:file:bg-blue-100"
+                accept="image/*"
+              />
+            </div>
+            <p v-if="form.errors.photo" class="text-red-500 text-xs mt-1">
+              {{ form.errors.photo }}
+            </p>
+          </div>
+        </div>
+
+        <div class="flex justify-end mt-6">
+          <button
+            type="submit"
+            class="px-6 py-2 bg-blue-600 text-white rounded-md 
+                   hover:bg-blue-700 focus:outline-none focus:ring-2 
+                   focus:ring-blue-500 focus:ring-offset-2 
+                   transition duration-300 
+                   disabled:opacity-50 disabled:cursor-not-allowed"
+            :disabled="form.processing"
+          >
+            {{ form.processing ? 'Saving...' : 'Save Changes' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { useForm } from '@inertiajs/vue3'
+import Layout from '@/Layouts/Dashboard.vue';
+  
+defineOptions({ layout: Layout });
+
+const props = defineProps({
+  about: {
+    type: Object,
+    required: true
+  }
+})
+
+const form = useForm({
+  name: props.about.name,
+  bio: props.about.bio,
+  position: props.about.position,
+  photo: null
+})
+
+const handlePhotoUpload = (e) => {
+  form.photo = e.target.files[0]
+}
+
+const submitForm = () => {
+  form.put(route('admin.about.update', props.about.id), {
+    preserveScroll: true,
+    onSuccess: () => {
+      form.reset('photo')
+    }
+  })
+}
+</script>

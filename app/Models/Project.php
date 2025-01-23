@@ -12,11 +12,6 @@ class Project extends Model
         'thumbnail',
         'github_link',
         'live_link',
-        'technologies_used'
-    ];
-
-    protected $casts = [
-        'technologies_used' => 'array'
     ];
 
     public function techStacks()

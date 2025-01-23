@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('thumbnail')->nullable();
             $table->string('github_link')->nullable();
             $table->string('live_link')->nullable();
-            $table->json('technologies_used');
             $table->timestamps();
         });
     }

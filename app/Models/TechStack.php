@@ -2,17 +2,28 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class TechStack extends Model
 {
-    use HasFactory;
+    protected $fillable = [
+        'name',
+        'icon', 
+        'proficiency',
+        'category'
+    ];
+    
+    protected $casts = [
+        'proficiency' => 'integer',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime'
+    ];
 
-    protected $table = 'tech_stacks';
-
-    public function projects()
+    public function getIconUrlAttribute()
     {
-        return $this->belongsToMany(Project::class, 'project_tech_stacks');
+        return $this->icon 
+            ? Storage::url('tech-stacks/' . $this->icon)
+            : null;
     }
 }
